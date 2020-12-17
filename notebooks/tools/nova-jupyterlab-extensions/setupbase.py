@@ -236,10 +236,12 @@ class BaseCommand(Command):
     def finalize_options(self):
         pass
 
-    def get_inputs(self):
+    @staticmethod
+    def get_inputs():
         return []
 
-    def get_outputs(self):
+    @staticmethod
+    def get_outputs():
         return []
 
 

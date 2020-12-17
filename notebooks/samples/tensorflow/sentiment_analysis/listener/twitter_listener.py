@@ -70,11 +70,13 @@ class Listener(StreamListener):
     def __init__(self):
         super(Listener, self).__init__()
 
-    def on_status(self, status):
+    @staticmethod
+    def on_status(status):
         write_to_pubsub(reformat_tweet(status._json))
         return True
 
-    def on_error(self, status_code):
+    @staticmethod
+    def on_error(status_code):
         logging.error('Error with status code:', status_code, sys.stderr)
         if status_code == 420:
             logging.error('Rate limit active')
