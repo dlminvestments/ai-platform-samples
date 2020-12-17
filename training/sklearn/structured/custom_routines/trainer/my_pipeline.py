@@ -18,7 +18,8 @@ class StripString(BaseEstimator, TransformerMixin):
     def fit(self, X, y=None):
         return self
 
-    def transform(self, X):
+    @staticmethod
+    def transform(X):
         strip = np.vectorize(str.strip)
         return strip(np.array(X))
 

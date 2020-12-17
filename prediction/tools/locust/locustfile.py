@@ -74,7 +74,8 @@ class CloudAITaskSet(TaskSet):
             json=self.example
         )
 
-    def _get_model_uri(self, model_cfg):
+    @staticmethod
+    def _get_model_uri(model_cfg):
         v_str = VERSION_ADDON.format(model_cfg['versionId']) if 'versionId' in model_cfg else ''
         m_uri = MODEL_URI.format(
             model_cfg['projectId'],
@@ -83,7 +84,8 @@ class CloudAITaskSet(TaskSet):
         )
         return m_uri
 
-    def _get_test_example(self, model_cfg):
+    @staticmethod
+    def _get_test_example(model_cfg):
         return random.choice(model_cfg['testExamples'])
 
     def _set_target(self):
@@ -120,7 +122,8 @@ class CloudAIUser(OAuth2Locust):
             json_string = json_in.read().decode('utf-8')
         return json_string
 
-    def _load_local_json(self, path):
+    @staticmethod
+    def _load_local_json(path):
         with open(path, 'r') as json_in:
             json_string = json_in.read()
         return json_string

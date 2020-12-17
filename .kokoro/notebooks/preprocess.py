@@ -1,7 +1,8 @@
 from nbconvert.preprocessors import Preprocessor
 
 class remove_no_execute_cells(Preprocessor):
-    def preprocess(self, notebook, resources):
+    @staticmethod
+    def preprocess(notebook, resources):
         executable_cells = []
         for cell in notebook.cells:
             if cell.metadata.get('tags'):
