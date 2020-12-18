@@ -165,18 +165,13 @@ def _get_sparse_and_dense_columns(feature_columns):
 
     dense_columns = [
         column for column in feature_columns
-        if (isinstance(column, feature_column.NumericColumn) or
-            isinstance(column, feature_column.EmbeddingColumn) or
-            isinstance(column, feature_column.IndicatorColumn))
+        if isinstance(column, (feature_column.NumericColumn, feature_column.EmbeddingColumn, feature_column.IndicatorColumn))
     ]
 
     sparse_columns = [
         column for column in feature_columns
         if
-        (isinstance(column, feature_column.VocabularyListCategoricalColumn) or
-         isinstance(column, feature_column.IdentityCategoricalColumn) or
-         isinstance(column, feature_column.BucketizedColumn) or
-         isinstance(column, feature_column.CrossedColumn))
+        isinstance(column, (feature_column.VocabularyListCategoricalColumn, feature_column.IdentityCategoricalColumn, feature_column.BucketizedColumn, feature_column.CrossedColumn))
     ]
 
     return sparse_columns, dense_columns
