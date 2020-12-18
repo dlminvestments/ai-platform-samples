@@ -3,7 +3,7 @@ Setup module for the jupyterlab_nova proxy extension
 """
 import setuptools
 from setupbase import (
-    create_cmdclass, ensure_python, find_packages
+    create_cmdclass, find_packages
     )
 
 data_files_spec = [

@@ -21,7 +21,6 @@ from requests.auth import AuthBase
 from urllib.parse import urlparse
 from google.cloud.storage.client import Client as GCSClient
 from io import BytesIO
-import re
 import json
 import os
 import random

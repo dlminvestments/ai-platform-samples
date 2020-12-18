@@ -2,7 +2,6 @@
 # a request to Cloud Build with an end date defined by the incoming message.
 from datetime import timedelta
 from dateutil import parser
-import json
 import yaml
 
 from google.auth import compute_engine
