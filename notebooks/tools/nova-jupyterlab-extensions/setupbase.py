@@ -489,7 +489,7 @@ def _get_file_handler(package_data_spec, data_files_spec):
 
         def run(self):
             package_data = self.distribution.package_data
-            package_spec = package_data_spec or dict()
+            package_spec = package_data_spec or {}
 
             for (key, patterns) in package_spec.items():
                 package_data[key] = _get_package_data(key, patterns)
