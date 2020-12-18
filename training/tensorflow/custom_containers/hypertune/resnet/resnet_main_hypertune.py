@@ -184,7 +184,8 @@ def resnet_model_fn(features, labels, mode, params):
         features = features['feature']
 
     if FLAGS.data_format == 'channels_first':
-        assert not FLAGS.transpose_input    # channels_first only for GPU
+        if FLAGS.transpose_input:
+            raise AssertionError
         features = tf.transpose(features, [0, 3, 1, 2])
 
     if FLAGS.transpose_input and mode != tf.estimator.ModeKeys.PREDICT:
@@ -333,8 +334,9 @@ def main(unused_argv):
         model_fn=resnet_model_fn,
         params={'batch_size': FLAGS.train_batch_size})
 
-    assert FLAGS.precision == 'bfloat16' or FLAGS.precision == 'float32', (
-        'Invalid value for --precision flag; must be bfloat16 or float32.')
+    if not (FLAGS.precision == 'bfloat16' or FLAGS.precision == 'float32'):
+        raise AssertionError(
+            'Invalid value for --precision flag; must be bfloat16 or float32.')
     tf.logging.info('Precision: %s', FLAGS.precision)
     use_bfloat16 = FLAGS.precision == 'bfloat16'
 
@@ -390,7 +392,8 @@ def main(unused_argv):
                 input_fn=imagenet_train.input_fn, max_steps=FLAGS.train_steps)
 
         else:
-            assert FLAGS.mode == 'train_and_eval'
+            if FLAGS.mode != 'train_and_eval':
+                raise AssertionError
             while current_step < FLAGS.train_steps:
                 # Train for up to steps_per_eval number of steps.
                 # At the end of training, a checkpoint will be written
