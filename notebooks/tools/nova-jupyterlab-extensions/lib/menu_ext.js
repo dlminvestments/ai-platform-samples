@@ -40,7 +40,7 @@ class XkcdWidget extends widgets_1.Widget {
         });
     }
 }
-;
+
 /**
  * Activate the xckd widget extension.
  */
@@ -107,7 +107,7 @@ function activate(app, palette, files, mainMenu) {
     // Add the command to the palette.
     palette.addItem({ command, category: 'Tutorial' });
 }
-;
+
 /**
  * Initialization data for the jlab_xkcd extension.
  */

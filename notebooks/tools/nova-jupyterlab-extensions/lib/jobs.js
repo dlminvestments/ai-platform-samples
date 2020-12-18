@@ -119,4 +119,4 @@ class JobsWidget extends widgets_1.Widget {
     }
 }
 exports.JobsWidget = JobsWidget;
-;
+
