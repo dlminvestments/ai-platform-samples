@@ -18,10 +18,8 @@ import argparse
 import datetime
 import json
 import logging
-import numpy as np
 import os
 import socket
-import subprocess
 
 import apache_beam as beam
 import apache_beam.transforms.window as window
@@ -29,13 +27,9 @@ import apache_beam.transforms.window as window
 from apache_beam.io.gcp.bigquery_tools import parse_table_schema_from_json
 from apache_beam.options.pipeline_options import StandardOptions
 from apache_beam.options.pipeline_options import GoogleCloudOptions
-from apache_beam.options.pipeline_options import SetupOptions
 from apache_beam.options.pipeline_options import PipelineOptions
 
-from apache_beam.transforms.util import BatchElements, GroupIntoBatches
-
-from googleapiclient import discovery
-from googleapiclient.errors import HttpError
+from apache_beam.transforms.util import BatchElements
 from google.api_core import retry
 from google.api_core import exceptions
 from google.cloud import language_v1
