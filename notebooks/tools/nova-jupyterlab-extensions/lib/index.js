@@ -106,7 +106,7 @@ function activateJobs(app, restorer) {
     }
     app.shell.addToLeftArea(sidePanel, { rank: 453 });
 }
-;
+
 class SubmitJobForm extends widgets_1.Widget {
     /**
      * Create a redirect form.
