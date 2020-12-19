@@ -99,11 +99,10 @@ def prediction_helper(messages):
             logging.info('Processed {} instances.'.format(len(instances)))
             instance['sentiment'] = scores[i]
         return instances
-    else:
-        logging.error('Invalid scores {} instances {}'.format(len(scores),
-                                                              len(instances)))
-        logging.error(instances)
-        return
+    logging.error('Invalid scores {} instances {}'.format(len(scores),
+                                                          len(instances)))
+    logging.error(instances)
+    return
 
 
 class GroupWindowsIntoBatches(beam.PTransform):

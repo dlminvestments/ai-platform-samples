@@ -194,5 +194,4 @@ def preprocess_image(image_bytes, is_training=False):
     """
     if is_training:
         return preprocess_for_train(image_bytes)
-    else:
-        return preprocess_for_eval(image_bytes)
+    return preprocess_for_eval(image_bytes)
