@@ -110,10 +110,9 @@ def prediction_helper(messages):
         for i, instance in enumerate(instances):
             instance['sentiment'] = scores[i]
         return instances
-    else:
-        logging.error('Invalid scores {} instances {}'.format(len(scores),
-                                                              len(instances)))
-        return
+    logging.error('Invalid scores {} instances {}'.format(len(scores),
+                                                          len(instances)))
+    return
 
 
 def run(args, pipeline_args=None):

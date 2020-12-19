@@ -45,48 +45,47 @@ def parse_environment_config(env_config_str, job_id):
     An EnvironmentConfig.
   """
   if env_config_str:
-    ssh_port = -1
-    env_config_json = json.loads(env_config_str)
-    cluster = env_config_json.get("cluster")
-    if not cluster:
-      return None, True
-    hosts = []
-    pools = collections.defaultdict(list)
-    for pool_type, tasks_per_type in cluster.items():
-      if pool_type == "master":
-        pool_type = "chief"
-      for host_and_port in tasks_per_type:
-        host, port = host_and_port.split(":")
-        if host == "127.0.0.1":
-          host = "localhost"
-        port = int(port)
-        if ssh_port == -1:
-          ssh_port = port
-        elif ssh_port != port:
-          raise ValueError("Inconsistent ssh ports across tasks %d != %d." %
-                           (ssh_port, port))
-        hosts.append(host)
-        pools[pool_type].append(host)
-    is_chief = False
-    has_chief = "chief" in pools
-    if (env_config_json["task"]["type"] == "master" or
-        env_config_json["task"]["type"] == "chief"):
-      is_chief = True
-      if int(env_config_json["task"]["index"]) != 0:
-        raise ValueError("Only one master node is expected.")
-    elif ((not has_chief) and
-          (env_config_json["task"]["type"] == "worker") and
-          int(env_config_json["task"]["index"]) == 0):
-      is_chief = True
-      pools["chief"].append(pools["worker"].pop(0))
-    elif env_config_json["task"]["type"] != "worker":
-      raise ValueError("Unexpected task type for Horovod training: %s." %
-                       env_config_json["task"]["type"])
-    return EnvironmentConfig(hosts=hosts, port=port, is_chief=is_chief,
-                             pools=pools, job_id=job_id)
-  else:
-    return EnvironmentConfig(hosts=["localhost"], port=2222, is_chief=True,
-                             pools={"chief": ["localhost"]}, job_id=job_id)
+      ssh_port = -1
+      env_config_json = json.loads(env_config_str)
+      cluster = env_config_json.get("cluster")
+      if not cluster:
+          return None, True
+      hosts = []
+      pools = collections.defaultdict(list)
+      for pool_type, tasks_per_type in cluster.items():
+          if pool_type == "master":
+              pool_type = "chief"
+          for host_and_port in tasks_per_type:
+              host, port = host_and_port.split(":")
+              if host == "127.0.0.1":
+                  host = "localhost"
+              port = int(port)
+              if ssh_port == -1:
+                  ssh_port = port
+              elif ssh_port != port:
+                  raise ValueError("Inconsistent ssh ports across tasks %d != %d." %
+                                   (ssh_port, port))
+              hosts.append(host)
+              pools[pool_type].append(host)
+      is_chief = False
+      has_chief = "chief" in pools
+      if (env_config_json["task"]["type"] == "master" or
+          env_config_json["task"]["type"] == "chief"):
+          is_chief = True
+          if int(env_config_json["task"]["index"]) != 0:
+              raise ValueError("Only one master node is expected.")
+      elif ((not has_chief) and
+            (env_config_json["task"]["type"] == "worker") and
+            int(env_config_json["task"]["index"]) == 0):
+          is_chief = True
+          pools["chief"].append(pools["worker"].pop(0))
+      elif env_config_json["task"]["type"] != "worker":
+          raise ValueError("Unexpected task type for Horovod training: %s." %
+                           env_config_json["task"]["type"])
+      return EnvironmentConfig(hosts=hosts, port=port, is_chief=is_chief,
+                               pools=pools, job_id=job_id)
+  return EnvironmentConfig(hosts=["localhost"], port=2222, is_chief=True,
+                           pools={"chief": ["localhost"]}, job_id=job_id)
 
 
 def start_ssh_server(port, is_chief):
