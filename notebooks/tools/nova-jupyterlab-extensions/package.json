@@ -35,7 +35,7 @@
     "@jupyterlab/apputils": "^0.19.1",
     "@jupyterlab/coreutils": "^2.2.1",
     "@jupyterlab/docregistry": "^3.0.0",
-    "@jupyterlab/filebrowser": "^3.0.0",
+    "@jupyterlab/filebrowser": "^3.0.2",
     "@jupyterlab/mainmenu": "^0.8.0",
     "@jupyterlab/notebook": "^3.0.0",
     "file-system": "^2.2.2",
