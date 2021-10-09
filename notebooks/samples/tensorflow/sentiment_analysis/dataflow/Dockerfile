@@ -11,7 +11,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-FROM python:3.7-slim-buster
+FROM python:3.10.0rc1-slim
 
 # Install dependencies.
 ADD requirements.txt requirements.txt
